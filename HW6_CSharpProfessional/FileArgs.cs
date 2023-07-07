@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HW6_CSharpProfessional
 {
     /// <summary>
-    /// Информация о файле
+    /// Информация о файле. FileArgs – будет содержать имя файла и наследоваться от EventArgs
     /// </summary>
     public class FileArgs: EventArgs
     {

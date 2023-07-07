@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             // пп.1 
+
             List<string> list = new();
             
             for (int i = 0; i < 10; i++)
@@ -20,6 +21,22 @@
             var maxValue = list.GetMax(mV => int.Parse(mV));
 
             Console.WriteLine($"Максимальное значение: {maxValue}");
+
+            // пп.2 - 3
+
+            string filesPath = Directory.GetCurrentDirectory();
+            TraversingFileDir traversingFileDir = new ();
+
+            Console.WriteLine($"Директория поиска файлов {filesPath}");
+
+            traversingFileDir.FileSearch(filesPath);
+
+            traversingFileDir.FileFound += traversingFileDir.TraversingFileDir_FileFound;
+
+
+
+
+            Console.ReadKey();
 
         }
     }
