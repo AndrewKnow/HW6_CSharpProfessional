@@ -77,32 +77,7 @@ namespace HW6_CSharpProfessional
             }    
         }
 
-        /// <summary>
-        /// Событие при нахождении каждого файла
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void TraversingFileDir_FileFound(object? sender, FileArgs e)
-        {
-            Console.WriteLine($"файл: {e.Name} - {e.Length} байт");
-        }
 
-        /// <summary>
-        /// Событие отмены поиска
-        /// </summary>
-        public void TraversingFileDir_Сancellation()
-        {
-            FileFound -= TraversingFileDir_FileFound;
-            Console.WriteLine("Отмена");
-        }
-
-        /// <summary>
-        /// Событие поиска самого большого файла
-        /// </summary>
-        public void TraversingFileDir_MaxSize(object? sender, string fileSize)
-        {
-            Console.Write($"{fileSize}");
-        }
 
     }
 }
