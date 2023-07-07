@@ -12,6 +12,12 @@ namespace HW6_CSharpProfessional
     /// </summary>
     public class TraversingFileDir
     {
+        private readonly string _path;
+        public TraversingFileDir(string path)
+        {
+            _path = path;   
+        }
+
         public event EventHandler<FileArgs>? FileFound;
         public event Action? Сancellation;
 
@@ -19,9 +25,9 @@ namespace HW6_CSharpProfessional
         /// Переребор файлов
         /// </summary>
         /// <param name="path">директория</param>
-        public void FileSearch(string path)
+        public void FileSearch()
         {
-            var files = new DirectoryInfo(path).EnumerateFiles();
+            var files = new DirectoryInfo(_path).EnumerateFiles();
 
             foreach (var file in files)
             {

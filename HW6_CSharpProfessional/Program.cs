@@ -5,7 +5,6 @@
         static void Main(string[] args)
         {
             // пп.1 
-
             List<string> list = new();
             
             for (int i = 0; i < 10; i++)
@@ -23,19 +22,18 @@
             Console.WriteLine($"Максимальное значение: {maxValue}");
 
             // пп.2 - 3
-
             string filesPath = Directory.GetCurrentDirectory();
-            TraversingFileDir traversingFileDir = new ();
+            TraversingFileDir traversingFileDir = new (filesPath);
 
-            Console.WriteLine($"Директория поиска файлов {filesPath}");
-
-            traversingFileDir.FileSearch(filesPath);
-
+            // подписываемся на событие нахождения файла
             traversingFileDir.FileFound += traversingFileDir.TraversingFileDir_FileFound;
 
+            // ищем файлы в корне диреткории
+            traversingFileDir.FileSearch();
 
+            
 
-
+            traversingFileDir.FileFound -= traversingFileDir.TraversingFileDir_FileFound;
             Console.ReadKey();
 
         }
