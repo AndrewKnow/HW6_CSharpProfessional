@@ -8,8 +8,19 @@ using System.Threading.Tasks;
 
 namespace HW6_CSharpProfessional
 {
+    /// <summary>
+    /// Написать обобщённую функцию расширения, находящую и возвращающую максимальный элемент коллекции.
+    /// Функция должна принимать на вход делегат, преобразующий входной тип в число для возможности поиска максимального значения.
+    /// </summary>
     public static class GeneralizedExtensionFunccs
     {
+        /// <summary>
+        /// Метод преобразующий входной тип в число для возможности поиска максимального значения
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="e"></param>
+        /// <param name="getParameter"></param>
+        /// <returns></returns>
         public static T? GetMax<T>(this IEnumerable<T> e, Func<T, float> getParameter) where T : class
         {
             // определяем max значение
