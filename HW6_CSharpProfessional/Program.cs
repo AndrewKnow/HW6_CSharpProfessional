@@ -20,20 +20,27 @@
             var maxValue = list.GetMax(mV => int.Parse(mV));
 
             Console.WriteLine($"Максимальное значение: {maxValue}");
+            Console.WriteLine("----------------------------------");
 
             // пп.2 - 3
             string filesPath = Directory.GetCurrentDirectory();
+            Console.WriteLine($"Директория {filesPath}:");
             TraversingFileDir traversingFileDir = new (filesPath);
 
             // подписываемся на событие нахождения файла
             traversingFileDir.FileFound += traversingFileDir.TraversingFileDir_FileFound;
+            // пп.4 подписываемся на событие отмены поиска
+            traversingFileDir.Сancellation += traversingFileDir.TraversingFileDir_Сancellation;
 
-            // ищем файлы в корне диреткории
+            // ищем файлы в диреткории filesPath
             traversingFileDir.FileSearch();
 
-            
+            Console.WriteLine("----------------------------------");
 
-            traversingFileDir.FileFound -= traversingFileDir.TraversingFileDir_FileFound;
+
+
+
+            
             Console.ReadKey();
 
         }

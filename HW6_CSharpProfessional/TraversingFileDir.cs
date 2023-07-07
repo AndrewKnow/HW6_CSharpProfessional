@@ -12,6 +12,7 @@ namespace HW6_CSharpProfessional
     /// </summary>
     public class TraversingFileDir
     {
+        public bool StopSearch { get; set; } = false;
         private readonly string _path;
         public TraversingFileDir(string path)
         {
@@ -29,11 +30,23 @@ namespace HW6_CSharpProfessional
         {
             var files = new DirectoryInfo(_path).EnumerateFiles();
 
+            var i = 0;
+
             foreach (var file in files)
             {
-                FileFound?.Invoke(this, new FileArgs(file.Name));
+                i++;
+                if (i < 4)
+                {
+                    FileFound?.Invoke(this, new FileArgs(file.Name));
+                }
+                else
+                {
+                    StopSearch = true;
+                    Сancellation?.Invoke();
+                }
+
+                if (StopSearch) break;
             }    
- 
         }
 
         /// <summary>
@@ -44,6 +57,15 @@ namespace HW6_CSharpProfessional
         public void TraversingFileDir_FileFound(object? sender, FileArgs e)
         {
             Console.WriteLine($"Найден файл: {e.Name}");
+        }
+
+        /// <summary>
+        /// Событие отмены поиска
+        /// </summary>
+        public void TraversingFileDir_Сancellation()
+        {
+            FileFound -= TraversingFileDir_FileFound;
+            Console.WriteLine($"Отмена");
         }
 
     }
