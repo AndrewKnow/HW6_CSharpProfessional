@@ -23,19 +23,19 @@ namespace HW6_CSharpProfessional
         /// <returns></returns>
         public static T? GetMax<T>(this IEnumerable<T> e, Func<T, float> getParameter) where T : class
         {
-            // определяем max значение
-            var eMax = getParameter(e.OrderByDescending(i => i).First());
+            //// определяем max значение
+            //var eMax = getParameter(e.OrderByDescending(i => i).First());
 
             T? desiredValue = null;
+            var minValue = float.MinValue;
 
             foreach (T val in e)
             {
                 var num = getParameter(val);
-                if (eMax == num)
+                if (num > minValue)
                 {
-                    // возвращаемый объект
                     desiredValue = val;
-                    break;
+                    minValue = num;
                 }    
             }
 

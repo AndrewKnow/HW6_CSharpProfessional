@@ -38,12 +38,12 @@ namespace HW6_CSharpProfessional
             var i = 0;
 
             List<string> list = new();
-
+     
             // поиск файла с максимальным размером
             foreach (var file in files)
             {
-               long length = new FileInfo(file.FullName).Length;
-               list.Add(length.ToString());
+               var length = new FileInfo(file.FullName).Length.ToString();
+               list.Add(length);
             }
 
             var maxValue = list.GetMax(mV => float.Parse(mV));
@@ -58,7 +58,7 @@ namespace HW6_CSharpProfessional
        
                     if (length.ToString() == maxValue)
                     {
-                        MaxSize?.Invoke(this, $"Самый большой файл {file.Name} - {length} байт");
+                        MaxSize?.Invoke(this, "Самый большой ");
                     }
 
                     FileFound?.Invoke(this, new FileArgs(file.Name, length));
@@ -80,7 +80,7 @@ namespace HW6_CSharpProfessional
         /// <param name="e"></param>
         public void TraversingFileDir_FileFound(object? sender, FileArgs e)
         {
-            Console.WriteLine($"Найден файл: {e.Name} - {e.Length} байт");
+            Console.WriteLine($"файл: {e.Name} - {e.Length} байт");
         }
 
         /// <summary>
@@ -97,8 +97,7 @@ namespace HW6_CSharpProfessional
         /// </summary>
         public void TraversingFileDir_MaxSize(object? sender, string fileSize)
         {
-            Console.WriteLine($"{fileSize}");
-            Console.WriteLine("----------------------------------");
+            Console.Write($"{fileSize}");
         }
 
     }
