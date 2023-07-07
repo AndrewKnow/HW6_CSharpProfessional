@@ -21,7 +21,7 @@
 
             var maxValue = list.GetMax(mV => int.Parse(mV));
 
-            Console.WriteLine($"Максимальное значение: {maxValue}");
+            Console.WriteLine($"Максимальное значение: {maxValue.ToString()}");
 
 
 

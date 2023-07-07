@@ -10,10 +10,24 @@ namespace HW6_CSharpProfessional
 {
     public static class GeneralizedExtensionFunccs
     {
-        public static T GetMax<T>(this IEnumerable<T> e, Func<T, float> getParameter) where T : class
+        public static T? GetMax<T>(this IEnumerable<T> e, Func<T, float> getParameter) where T : class
         {
-            var eMax = e.OrderByDescending(i => i).First();
-            return eMax;
+            // определяем max значение
+            var eMax = getParameter(e.OrderByDescending(i => i).First());
+
+            T? desiredValue = null;
+
+            foreach (T val in e)
+            {
+                var num = getParameter(val);
+                if (eMax == num)
+                {
+                    // возвращаемый объект
+                    desiredValue = val;
+                }    
+            }
+
+            return desiredValue;
         }
     }
 }
