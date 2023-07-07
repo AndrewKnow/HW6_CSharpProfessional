@@ -17,20 +17,24 @@
 
             Console.WriteLine($"Рандомная коллекция: {string.Join(", ", list)}");
 
-            var maxValue = list.GetMax(mV => int.Parse(mV));
+            var maxValue = list.GetMax(mV => float.Parse(mV));
 
             Console.WriteLine($"Максимальное значение: {maxValue}");
             Console.WriteLine("----------------------------------");
 
-            // пп.2 - 3
+            // пп.2 - 5
             string filesPath = Directory.GetCurrentDirectory();
-            Console.WriteLine($"Директория {filesPath}:");
+
             TraversingFileDir traversingFileDir = new (filesPath);
 
             // подписываемся на событие нахождения файла
             traversingFileDir.FileFound += traversingFileDir.TraversingFileDir_FileFound;
-            // пп.4 подписываемся на событие отмены поиска
+
+            // подписываемся на событие отмены поиска по условию
             traversingFileDir.Сancellation += traversingFileDir.TraversingFileDir_Сancellation;
+
+            // подписываемся на событие нахождения самого большого файла
+            traversingFileDir.MaxSize += traversingFileDir.TraversingFileDir_MaxSize;
 
             // ищем файлы в диреткории filesPath
             traversingFileDir.FileSearch();
@@ -38,11 +42,11 @@
             Console.WriteLine("----------------------------------");
 
 
-
-
-            
+            Console.WriteLine("Нажмите клавишу для закрытия программы");
             Console.ReadKey();
 
+            traversingFileDir.Сancellation -= traversingFileDir.TraversingFileDir_Сancellation;
+            traversingFileDir.MaxSize -= traversingFileDir.TraversingFileDir_MaxSize;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace HW6_CSharpProfessional
                 {
                     // возвращаемый объект
                     desiredValue = val;
+                    break;
                 }    
             }
 

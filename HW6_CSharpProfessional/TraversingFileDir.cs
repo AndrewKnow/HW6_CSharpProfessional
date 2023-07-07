@@ -12,7 +12,11 @@ namespace HW6_CSharpProfessional
     /// </summary>
     public class TraversingFileDir
     {
+        /// <summary>
+        /// Свойство контролирующее отмену поиска файлов
+        /// </summary>
         public bool StopSearch { get; set; } = false;
+
         private readonly string _path;
         public TraversingFileDir(string path)
         {
@@ -21,6 +25,7 @@ namespace HW6_CSharpProfessional
 
         public event EventHandler<FileArgs>? FileFound;
         public event Action? Сancellation;
+        public event EventHandler<string>? MaxSize;
 
         /// <summary>
         /// Переребор файлов
@@ -32,12 +37,31 @@ namespace HW6_CSharpProfessional
 
             var i = 0;
 
+            List<string> list = new();
+
+            // поиск файла с максимальным размером
+            foreach (var file in files)
+            {
+               long length = new FileInfo(file.FullName).Length;
+               list.Add(length.ToString());
+            }
+
+            var maxValue = list.GetMax(mV => float.Parse(mV));
+
+
             foreach (var file in files)
             {
                 i++;
-                if (i < 4)
+                if (i < 5)
                 {
-                    FileFound?.Invoke(this, new FileArgs(file.Name));
+                    long length = new System.IO.FileInfo(file.FullName).Length;
+       
+                    if (length.ToString() == maxValue)
+                    {
+                        MaxSize?.Invoke(this, $"Самый большой файл {file.Name} - {length} байт");
+                    }
+
+                    FileFound?.Invoke(this, new FileArgs(file.Name, length));
                 }
                 else
                 {
@@ -56,7 +80,7 @@ namespace HW6_CSharpProfessional
         /// <param name="e"></param>
         public void TraversingFileDir_FileFound(object? sender, FileArgs e)
         {
-            Console.WriteLine($"Найден файл: {e.Name}");
+            Console.WriteLine($"Найден файл: {e.Name} - {e.Length} байт");
         }
 
         /// <summary>
@@ -65,7 +89,16 @@ namespace HW6_CSharpProfessional
         public void TraversingFileDir_Сancellation()
         {
             FileFound -= TraversingFileDir_FileFound;
-            Console.WriteLine($"Отмена");
+            Console.WriteLine("Отмена");
+        }
+
+        /// <summary>
+        /// Событие поиска самого большого файла
+        /// </summary>
+        public void TraversingFileDir_MaxSize(object? sender, string fileSize)
+        {
+            Console.WriteLine($"{fileSize}");
+            Console.WriteLine("----------------------------------");
         }
 
     }

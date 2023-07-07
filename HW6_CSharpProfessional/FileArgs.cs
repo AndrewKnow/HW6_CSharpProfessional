@@ -12,9 +12,11 @@ namespace HW6_CSharpProfessional
     public class FileArgs: EventArgs
     {
         public string Name { get; set; }
-        public FileArgs(string name)
+        public long Length { get; set; }
+        public FileArgs(string name, long length)
         {
             Name = name;
+            Length = length;
         }
     }
 }
