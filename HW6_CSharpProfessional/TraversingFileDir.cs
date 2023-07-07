@@ -36,14 +36,18 @@ namespace HW6_CSharpProfessional
             var files = new DirectoryInfo(_path).EnumerateFiles();
 
             var i = 0;
+            var j = 5;
 
             List<string> list = new();
      
             // поиск файла с максимальным размером
             foreach (var file in files)
             {
-               var length = new FileInfo(file.FullName).Length.ToString();
-               list.Add(length);
+                if (i < j)
+                {
+                    var length = new FileInfo(file.FullName).Length.ToString();
+                    list.Add(length);
+                }
             }
 
             var maxValue = list.GetMax(mV => float.Parse(mV));
@@ -52,13 +56,13 @@ namespace HW6_CSharpProfessional
             foreach (var file in files)
             {
                 i++;
-                if (i < 5)
+                if (i < j)
                 {
-                    long length = new System.IO.FileInfo(file.FullName).Length;
+                    long length = new FileInfo(file.FullName).Length;
        
                     if (length.ToString() == maxValue)
                     {
-                        MaxSize?.Invoke(this, "Самый большой ");
+                        MaxSize?.Invoke(this, "cамый большой ");
                     }
 
                     FileFound?.Invoke(this, new FileArgs(file.Name, length));
